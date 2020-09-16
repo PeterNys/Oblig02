@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>QUnit Example</title>
+    <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.9.2.css">
+</head>
+<body>
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+    <script src="https://code.jquery.com/qunit/qunit-2.9.2.js"></script>
+    <script src="oblig2UnitTest.js"></script>
+    <script>
+        let chosenBar;
+        let numbers = [7, 3, 1, 5, 8];
+        let inputValue;
+        let disableVar;
+        function show(){};
+
+        QUnit.test("1 selectStolpe() selected bar is now 6", function (assert) {
+            selectStolpe(6);
+            const actual = chosenBar;
+            const expected = 6;
+            assert.equal(actual, expected);
+        });
+      
+        QUnit.test("2 selectStolpe() selected bar is now 4", function (assert) {
+            selectStolpe(4);
+            const actual = chosenBar;
+            const expected = 4;
+            assert.equal(actual, expected);
+        });
+        QUnit.test("3 selectStolpe() selected bar is the same as before so it unselects", function (assert) {
+            selectStolpe(3);
+            selectStolpe(3);
+            const actual = chosenBar;
+            const expected = undefined;
+            assert.equal(actual, expected);
+        });
+
+
+        QUnit.test("4 removeStolpe() removes key with indexnumber 2 from numbers[]", function (assert) {
+            chosenBar=2;
+            removeStolpe();
+            const actual = numbers;
+            const expected = [7,3,5,8];
+            assert.deepEqual(actual, expected);
+        });
+        QUnit.test("5 removeStolpe() removes a single key at indexnumber 0 from numbers[]", function (assert) {
+            numbers = [1];
+            chosenBar = 0;
+            removeStolpe();
+            const actual = numbers;
+            const expected = [];
+            assert.deepEqual(actual, expected);
+        });
+        QUnit.test("6 removeStolpe() Removes a single key from indexnumber 1 from an empty numbers[] array. Not sure why this test is here", function (assert) {
+            numbers = [];
+            chosenBar = 1;
+
+            removeStolpe();
+            const actual = numbers;
+            const expected = [];
+            assert.deepEqual(actual, expected);
+        });
+
+        QUnit.test("7 changeStolpe() changes key at indexnumber[4] to 10", function (assert) {
+            numbers = [5,3,2,6,3];
+            chosenBar = 4;
+            inputValue = 10;
+
+            changeStolpe();
+            const actual = numbers;
+            const expected = [5,3,2,6,10];
+            assert.deepEqual(actual, expected);
+        });
+
+        QUnit.test("8 changeStolpe() changes key at indexnumber[0] to 6", function (assert) {
+            numbers = [3];
+            chosenBar = 0;
+            inputValue = 6;
+
+            changeStolpe();
+            const actual = numbers;
+            const expected = [6];
+            assert.deepEqual(actual, expected);
+        });
+
+        QUnit.test("9 changeStolpe(): numbers[] stay the same if inputValue is over 10", function (assert) {
+            numbers = [4,3,1,5];
+            chosenBar = 2;
+            inputValue = 11;
+
+            changeStolpe();
+            const actual = numbers;
+            const expected = [4,3,1,5];
+            assert.deepEqual(actual, expected);
+        });
+
+        QUnit.test("10 changeStolpe(): numbers[] stay the same if inputValue is under 10 ", function (assert) {
+            numbers = [4,3,1,5];
+            chosenBar = 2;
+            inputValue = 0;
+
+            changeStolpe();
+            const actual = numbers;
+            const expected = [4,3,1,5];
+            assert.deepEqual(actual, expected);
+        });
+        
+        QUnit.test("11 addStolpe(): adds key to numbers[] with value depending on inputValue", function (assert) {
+            numbers = [4,3,1,5];
+            chosenBar = 2;
+            inputValue = 8;
+
+            addStolpe();
+            const actual = numbers;
+            const expected = [4,3,1,5,8];
+            assert.deepEqual(actual, expected);
+        });
+
+        QUnit.test("12 addStolpe(): adds key with different inputValue to numbers[]", function (assert) {
+            numbers = [4,3,1,5];
+            chosenBar = 2;
+            inputValue = 2;
+
+            addStolpe();
+            const actual = numbers;
+            const expected = [4,3,1,5,2];
+            assert.deepEqual(actual, expected);
+        });
+
+        QUnit.test("13 addStolpe(): doesn't add key if inputValue is over 11", function (assert) {
+            numbers = [4,3,1,5];
+            chosenBar = 2;
+            inputValue = 11;
+
+            addStolpe();
+            const actual = numbers;
+            const expected = [4,3,1,5];
+            assert.deepEqual(actual, expected);
+        });
+
+        QUnit.test("14 addStolpe(): or under 1", function (assert) {
+            numbers = [4,3,1,5];
+            chosenBar = 2;
+            inputValue = -1;
+
+            addStolpe();
+            const actual = numbers;
+            const expected = [4,3,1,5];
+            assert.deepEqual(actual, expected);
+        });
+    </script>
+</body>
+</html>
